@@ -16,7 +16,7 @@
         <button id="readMoreBtn">Read More</button>
     </div>
 
-    <!-- Trigger/Open The Modal -->
+    <!-- open model
 
     <div id="svgMap">
     </div>
@@ -39,10 +39,10 @@
     <!-- The Modal itself-->
     <div id="readMoreModal" class="modal">
 
-        <!-- Modal content: Change Lorem Ipsum to your content here -->
+        <!-- read more content
         <div class="modal-content">
             <span class="close">&times;</span>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quam vel tempore autem doloribus nam velit possimus voluptatibus blanditiis, doloremque aliquid, corporis beatae aliquam fugiat deleniti numquam eaque totam nulla eos.</p>
+            <p>This visualisation shows Covid19 cases from Jan 2020 - April 2020. The stock market time frame is September 2019 - April 2020.</p>
         </div>
 
     </div>
