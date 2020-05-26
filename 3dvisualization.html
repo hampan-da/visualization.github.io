@@ -454,8 +454,9 @@ map.addLayer({
      
           
  
-// When a click event occurs on a feature in the states layer, open a popup at the
+// When clicking on a feature in the states/country layer, open a popup at the
 // location of the click, with description HTML from its properties.
+        //unfinished
 map.on('click', 'stock-extrusion', function(e) {
 new mapboxgl.Popup()
 .setLngLat(e.lngLat)
@@ -770,10 +771,10 @@ function chartInit(data) {
       }
     },
     title: {
-      text: 'Comparing Stock Markets Through Time'
+      text: 'Comparing Stock Markets January - April 2020'
     },
     subtitle: {
-      text: 'Each dot represents a stock market in the following order: US, UK, Germany, Italy, Australia, China'
+      text: 'Stock markets are represented by points on the chart in the following order: US, UK, Germany, Italy, Australia, China'
     },
     xAxis: {
       type: 'date'
