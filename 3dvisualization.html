@@ -98,23 +98,23 @@ background: linear-gradient(90deg, rgba(236,222,239,0) 0%, rgba(208,209,230,1) 1
       
       
     <div id="map"></div>
-
+// cool map overlay effect
 <div class="map-overlay top">
-    <h1 style="color: aqua">nCov19 and StockMarket Variation Map...</h1>
-    <h5 style="color: red">SPX Index </h5>
-     <h5 style="color: blue">AXX Index </h5>
-     <h5 style="color: yellow">SHSZ300 Index </h5>
-     <h5 style="color: brown">AS52 Index </h5>
-     <h5 style="color: orange">ITLMS Index </h5>
-    <h5 style="color: beige">CLXP Index </h5>
+    <h1 style="color: aqua">nCovid-19 and Global Stock Market Data...</h1>
+    <h5 style="color: red">SPX Index - US </h5>
+     <h5 style="color: blue">AXX Index - UK </h5>
+     <h5 style="color: yellow">CLXP Index </h5>
+     <h5 style="color: brown"> ITLMS Index </h5>
+     <h5 style="color: orange">AS52 Index </h5>
+    <h5 style="color: beige"> SHSZ300 Index </h5>
     <div class="map-overlay-inner">
         
-         
+         // time slider properties and legend for heatmap
 <div id='container'></div>
 
     </div>
     <div class="map-overlay-inner">
-        <h2>Preview by Date</h2>
+        <h2>Time Slider</h2>
         <label id="Date"></label>
         <input id="slider" type="range" min="0" max="62" step="1" value="0" />
     </div>
@@ -122,7 +122,7 @@ background: linear-gradient(90deg, rgba(236,222,239,0) 0%, rgba(208,209,230,1) 1
         
         <div id="legend" class="legend">
             <div class="bar"></div>
-            <div><h3 style="color: darkgrey">Low __   Cornoa Virus Impact     __  High</h3></div>
+            <div><h3 style="color: darkgrey"> Low -> Corona Virus Cases -> High</h3></div>
         </div>
     </div>
     
@@ -255,7 +255,7 @@ antialias: true
           'type': 'geojson',
           'data': 'https://hampan-da.github.io/visualization.github.io/train.geojson'
         });
-
+// https://docs.mapbox.com/mapbox-gl-js/example/heatmap-layer/
         map.addLayer(
           {
             'id': 'covid-heat',
@@ -320,7 +320,7 @@ antialias: true
           
           
           
-          
+ // https://bl.ocks.org/fxi/9bfb0b44a88ca075258d53ad8be96154         
         map.addLayer(
           {
             'id': 'covid-point',
@@ -377,7 +377,7 @@ antialias: true
 'https://hampan-da.github.io/visualization.github.io/stocktimeseries.geojson'
 });
 map.addLayer({
-'id': 'stock-extrusion',
+'id': 'stock-extrusion', // https://docs.mapbox.com/mapbox-gl-js/example/3d-extrusion-floorplan/
 'type': 'fill-extrusion',
 'source': 'stockplan',
 'paint': {
@@ -403,6 +403,7 @@ map.addLayer({
 
 }
 });   
+        // to add label: https://docs.mapbox.com/mapbox-gl-js/example/add-image/
 map.addLayer({
                     'id': 'px-last-labels',
                     'type': 'symbol',
@@ -457,6 +458,7 @@ map.addLayer({
 // When clicking on a feature in the states/country layer, open a popup at the
 // location of the click, with description HTML from its properties.
         //unfinished
+        //  inspired by this: https://docs.mapbox.com/mapbox-gl-js/example/popup-on-click/
 map.on('click', 'stock-extrusion', function(e) {
 new mapboxgl.Popup()
 .setLngLat(e.lngLat)
@@ -490,7 +492,8 @@ map.getCanvas().style.cursor = '';
         
         
         
-        
+    // the following functions to add data back to map layers were taken from:
+      // https://bl.ocks.org/fxi/9bfb0b44a88ca075258d53ad8be96154
     function getData() {
   var vals = [];
   var layer = "stock-extrusion"
