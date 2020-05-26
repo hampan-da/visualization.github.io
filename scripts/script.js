@@ -1,4 +1,4 @@
-//================ SVG MAP VARIABLES =========================
+//SVG Map
 
 var el = document.getElementById("svgMap"); // target element
 var rect = el.getBoundingClientRect(); // get the bounding rectangle
@@ -27,10 +27,10 @@ var svgMap = d3.select("#svgMap").append("svg")
 var parseDateMap = d3.time.format("%d/%m/%Y").parse;
 
 
-//================ CHART VARIABLES =========================
+//Make line chart
 
 var elChart = document.getElementById("container"); // or other selector like querySelector()
-var rectChart = elChart.getBoundingClientRect(); // get the bounding rectangle
+var rectChart = elChart.getBoundingClientRect(); // get the boundaries for rectangle
 
 // set width and height dynamically
 var width = rectChart.width - 50,
@@ -86,13 +86,12 @@ var svg = d3.select("#container")
 
 
 
-//================ SVG MAP & CHART PLOT  =========================
+//SVG map with the line chart
 
 // Load external data: geojson file is hosted because of browser CORS issues. 
 queue()
 // .defer(d3.json, "https://raw.githubusercontent.com/chloemow/data/world.geojson") 
-// found someone with same file
-    .defer(d3.json, "https://raw.githubusercontent.com/bayoishola20/JavaScript-All/master/Data/world.geojson")
+    .defer(d3.json, "https://github.com/hampan-da/visualization.github.io/world.geojson") //new account
 //    .defer(d3.csv, "https://raw.githubusercontent.com/chloemow/data/train.csv", function(d) {
     .defer(d3.csv, "data/train.csv", function(d) {
 
@@ -117,6 +116,7 @@ function ready(error, topo, covid, stock) {
 
 
     // tool tip creating and styling
+    // https://bl.ocks.org/d3noob/a22c42db65eb00d4e369
     var tooltip = d3.select("body")
         .append("div")
         .attr("class", "tooltip")
@@ -130,6 +130,7 @@ function ready(error, topo, covid, stock) {
 
 
     // zoom function
+    //https://www.d3-graph-gallery.com/graph/interactivity_zoom.html
     function zoomed() {
         gMap.attr("transform", "translate(" + d3.event.translate + ")scale(" + d3.event.scale + ")");
         svgMap.selectAll("circle")
@@ -143,7 +144,7 @@ function ready(error, topo, covid, stock) {
 
 
 
-    //=========== Draw the map
+    //Draw the map
     gMap
         .selectAll("path")
         .data(topo.features)
@@ -157,7 +158,8 @@ function ready(error, topo, covid, stock) {
 
 
 
-    //============ Draw confirmed cases as circles
+    //Draw confirmed cases as circles
+    // https://www.dashingd3js.com/creating-svg-elements-based-on-data
     var circles =
         gMap.selectAll('circle')
         .data(covid)
@@ -178,9 +180,9 @@ function ready(error, topo, covid, stock) {
 
 
 
-    //========== stock chart
+    //Stockmarket
 
-    // Select needed columns by taking out unnecessary ones
+    // Select useful columns and taking out unnecessary ones
     color.domain(d3.keys(stock[0]).filter(function(key) {
 
         return key !== "Date_SPX" && key !== "PX_VOLUME_SPX" &&
@@ -263,7 +265,9 @@ function ready(error, topo, covid, stock) {
 
 
 
-    // Add the mouse line
+    // Add the mouse line to view specific part of line chart
+    // http://bl.ocks.org/mikehadlow/93b471e569e31af07cd3
+    //https://stackoverflow.com/questions/38687588/add-horizontal-crosshair-to-d3-js-chart
     var crosshair = svg.append("g")
         .attr("class", "mouse-over-effects");
 
@@ -363,7 +367,7 @@ function ready(error, topo, covid, stock) {
     var maxDate = d3.max(covid, d => d.Date);
 
 
-    //================ total confirmed cases
+    //total covid19 cases
 
     // sum confirmed cases by date
     var covidSum = d3.nest()
@@ -378,12 +382,12 @@ function ready(error, topo, covid, stock) {
             covidSum.map(function(d) { if (parseInt(d.key) === minDate) return d.values })[0]
         );
 
-    //======================== map info
+    //map info under the SVG map
     d3
         .select("#info")
         .text("Circles are scaled per 1,000");
 
-    //========================= sync chart
+    // sync chart
     var sync = svg.append("line")
         .attr("x1", x(minDate))
         .attr("y1", 0)
@@ -394,9 +398,9 @@ function ready(error, topo, covid, stock) {
         .style("stroke-width", 2)
         .style("fill", "none");
 
-    //======================= slider section
-
+    //time slider section
     // create the noUiSlider
+    // http://www.htmldrive.net/items/demo/1281/noUiSlider-jQuery-Range-Slider
     var slider = d3.select("#mySlider").node();
     noUiSlider.create(slider, {
         start: 0,
@@ -424,15 +428,15 @@ function ready(error, topo, covid, stock) {
         return num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')
     }
 
-    // select date display element
+    // select date display element 
     var dateValues = d3.select("#startEvent").node();
 
 
-    // updating with slider event
+    // updating with slider with cases
     slider.noUiSlider.on("update", function(values, handle, c, d, e) {
         time = Math.round(+values[0]);
 
-        // map circles updating
+        // map circles updating to time
         circles
             .style("fill", "steelblue")
             .style("opacity", 0.7)
@@ -472,11 +476,11 @@ function ready(error, topo, covid, stock) {
 
 
 
-//========================== Utilities ================================
+//utilities + backend fix
 
-var modal = document.getElementById("readMoreModal");
-var btn = document.getElementById("readMoreBtn");
-var span = document.getElementsByClassName("close")[0];
+var modal = document.getElementById("readMoreModal"); //line chart
+var btn = document.getElementById("readMoreBtn"); //read more button
+var span = document.getElementsByClassName("close")[0]; //add elements
 
 
 btn.onclick = function() {
